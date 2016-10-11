@@ -13,7 +13,7 @@
 
 #include "dictionary.h"
 
-//node* head = malloc(sizeof(node));
+//node *head = malloc(sizeof(node));
 node *head;
 int count;
 
@@ -31,12 +31,14 @@ bool check(const char* word)
             return trav->is_word;
         else
         {
-            if (isalpha(word[i]))
+            char low = tolower(word[i]);
+            
+            if (isalpha(low))
             {
                 //move to next leg of trie if found
-                if (trav->branch[word[i] - 'a'] != NULL)
+                if (trav->branch[low - 'a'] != NULL)
                 {
-                    trav = trav->branch[word[i] - 'a'];
+                    trav = trav->branch[low - 'a'];
                     i++;
                 }
                 //return false if no more letter branches found
@@ -77,6 +79,7 @@ bool load(const char* dictionary)
     
     //set word counter and trav to point at the head of our trie
     count = 0;
+    head = malloc(sizeof(node));
     node *trav = head;
     
     while(true)
@@ -143,6 +146,19 @@ unsigned int size(void)
  */
 bool unload(void)
 {
-    // TODO
+    if (unload1(head))
+        return true;
+    return false;
+}
+
+bool unload1(node *trav)
+{
+    for(int i = 0; i<27; i++)
+    {
+        if(trav->branch[i] != NULL)
+            unload1(trav->branch[i]);
+    }
+    
+    free(trav);
     return true;
 }
