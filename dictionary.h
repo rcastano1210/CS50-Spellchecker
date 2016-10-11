@@ -43,4 +43,7 @@ unsigned int size(void);
  */
 bool unload(void);
 
+//recursive function to unload
+bool unload1(node *trav);
+
 #endif // DICTIONARY_H
