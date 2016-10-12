@@ -79,7 +79,7 @@ bool load(const char* dictionary)
     
     //set word counter and trav to point at the head of our trie
     count = 0;
-    head = malloc(sizeof(node));
+    head = calloc(1, sizeof(node));
     node *trav = head;
     
     while(true)
@@ -102,13 +102,14 @@ bool load(const char* dictionary)
                 c = 'z' + 1;
                 
             int i = c - 'a';
+            //node trav->branch[i];
             //move to next leg of trie if it's already there
             if (trav->branch[i] != NULL)
                 trav = trav->branch[i];
             //create new node if it exists
             else
             {
-                trav->branch[i] = malloc(sizeof(node));
+                trav->branch[i] = calloc(1, sizeof(node));
                 trav = trav->branch[i];
             }
         }
