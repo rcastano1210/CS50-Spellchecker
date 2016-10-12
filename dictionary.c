@@ -97,29 +97,19 @@ bool load(const char* dictionary)
         //check to see if we're reading in a word
         if (isalpha(c) || c == '\'')
         {
-            if (isalpha(c))
-            {
-                //move to next leg of trie if it's already there
-                if (trav->branch[c - 'a'] != NULL)
-                    trav = trav->branch[c - 'a'];
-                //create new node if it exists
-                else
-                {
-                    trav->branch[c - 'a'] = malloc(sizeof(node));
-                    trav = trav->branch[c - 'a'];
-                }
-            }
-            //dealing with apostrophes
+            
+            if (c == '\'')
+                c = 'z' + 1;
+                
+            int i = c - 'a';
+            //move to next leg of trie if it's already there
+            if (trav->branch[i] != NULL)
+                trav = trav->branch[i];
+            //create new node if it exists
             else
             {
-                if (trav->branch[26] != NULL)
-                    trav = trav->branch[26];
-                //create new node if it doesn't exists
-                else
-                {
-                    trav->branch[26] = malloc(sizeof(node));
-                    trav = trav->branch[26];
-                }
+                trav->branch[i] = malloc(sizeof(node));
+                trav = trav->branch[i];
             }
         }
             
